@@ -1,10 +1,10 @@
-const { hello, postPredictHandler } =  require('./handler');
+const { PredictHandler } =  require('./handler');
 
 const routes = [
   {
     path: '/',
     method: 'POST',
-    handler: postPredictHandler,
+    handler: PredictHandler,
     options: {
       payload: {
         allow: 'multipart/form-data',

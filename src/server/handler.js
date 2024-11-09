@@ -1,19 +1,23 @@
 const { predictClassification } = require('../services/inferenceService');
-const storeData = require('../services/storeData');
+const {download} = require('./../services/downloadImage')
+const { publishPubSubMessage } = require('./../services/pubsub')
+const {storeData} = require('./../services/storeData');
 
-async function postPredictHandler(request, h) {
-  const { model } = request.server.app;
-
-  const { label, suggestion } = await predictClassification(model, image);
+async function PredictHandler(request, h) {
+  const pubsubMessage = await decodeBase64Json(request.payload.message.data);
   const createdAt = new Date().toISOString();
+  const image = await download(pubsubMessage)
+  const { model } = request.server.app;
+  const { label, suggestion } = await predictClassification(model, image);
 
   const data = {
     'result':label,
     'suggestion':suggestion,
-    'createdAt':createdAt
+    'createdAt':createdAt,
   };
 
   // await storeData(data);
+  // await publishPubSubMessage
 
   const response = h.response({
     status:'success',
@@ -27,7 +31,6 @@ async function postPredictHandler(request, h) {
 }
 
 async function postSubMessage(request, h){
-  const message = await decodeBase64Json(request.payload.message.data);
   console.log(message);
   try {
     const response = h.response({
@@ -48,4 +51,4 @@ function decodeBase64Json(data) {
   return JSON.parse(Buffer.from(data, 'base64').toString());
 }
 
-module.exports = { hello, postSubMessage, postPredictHandler };
+module.exports = { postSubMessage, PredictHandler };
