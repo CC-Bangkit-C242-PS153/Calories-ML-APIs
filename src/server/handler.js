@@ -1,17 +1,7 @@
 const { predictClassification } = require('../services/inferenceService');
 const storeData = require('../services/storeData');
 
-function hello(request, h){
-  const response = h.response({
-    status:'success'
-  });
-  return response;
-}
-
 async function postPredictHandler(request, h) {
-  // const message = await decodeBase64Json(request.payload.message.data);
-  // console.log(message);
-  const image = request.payload.message.data.image.data;
   const { model } = request.server.app;
 
   const { label, suggestion } = await predictClassification(model, image);
@@ -46,10 +36,9 @@ async function postSubMessage(request, h){
     }).code(204);
     return response;
   } catch (e){
-    console.log(e.message);
     const response = h.response({
       status:'fail',
-      message:'Pub/Sub message not delivered'
+      message:e.message
     }).code(500);
     return response;
   }
