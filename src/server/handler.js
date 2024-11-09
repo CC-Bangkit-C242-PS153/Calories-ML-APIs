@@ -15,7 +15,9 @@ async function PredictHandler(request, h) {
     'suggestion':suggestion,
     'createdAt':createdAt,
   };
-
+  console.log(pubsubMessage)
+  console.log(data)
+  
   // await storeData(data);
   // await publishPubSubMessage
 
