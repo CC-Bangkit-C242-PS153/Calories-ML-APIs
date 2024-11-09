@@ -7,4 +7,4 @@ async function storeData(id, data) {
   return predictCollection.doc(id).set(data);
 }
 
-module.exports = storeData;
+module.exports = {storeData};
