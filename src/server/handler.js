@@ -1,12 +1,12 @@
 const { predictClassification } = require('../services/inferenceService');
-const {download} = require('./../services/downloadImage')
-const { publishPubSubMessage } = require('./../services/pubsub')
-const {storeData} = require('./../services/storeData');
+const { download } = require('./../services/downloadImage');
+const { publishPubSubMessage } = require('./../services/pubsub');
+const { storeData } = require('./../services/storeData');
 
 async function PredictHandler(request, h) {
   const pubsubMessage = await decodeBase64Json(request.payload.message.data);
   const createdAt = new Date().toISOString();
-  const image = await download(pubsubMessage)
+  const image = await download(pubsubMessage);
   const { model } = request.server.app;
   const { label, suggestion } = await predictClassification(model, image);
 
