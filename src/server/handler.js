@@ -19,7 +19,7 @@ async function PredictHandler(request, h) {
   console.log(data)
   
   await storeData(pubsubMessage.id,data);
-  // await publishPubSubMessage
+  await publishPubSubMessage(data)
 
   const response = h.response({
     status:'success',
