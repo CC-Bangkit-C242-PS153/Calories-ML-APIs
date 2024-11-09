@@ -1,0 +1,37 @@
+{
+  "name": "calories",
+  "version": "1.0.0",
+  "description": "Calories APIs for predicting with ML Model",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./src/server/main.js",
+    "start:dev": "nodemon ./src/server/main.js",
+    "lint": "eslint ./",
+    "fix": "npx eslint --fix"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^7.10.0",
+    "@google-cloud/pubsub": "^4.8.0",
+    "@hapi/hapi": "^21.3.12",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "eslint": "^9.14.0",
+    "eslint-config-dicodingacademy": "^0.9.4",
+    "globals": "^15.12.0",
+    "nodemon": "^3.1.7"
+  },
+  "keywords": [
+    "dicoding",
+    "bangkit",
+    "fitcal",
+    "capstone",
+    "health",
+    "cloud"
+  ],
+  "author": "Cloud Computing Cohorts",
+  "license": "ISC"
+}
