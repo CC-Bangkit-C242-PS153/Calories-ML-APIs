@@ -15,8 +15,6 @@ async function PredictHandler(request, h) {
     'suggestion':suggestion,
     'createdAt':createdAt,
   };
-  console.log(pubsubMessage)
-  console.log(data)
   
   await storeData(pubsubMessage.id,data);
   await publishPubSubMessage(data)
@@ -27,30 +25,14 @@ async function PredictHandler(request, h) {
     data
   });
   response.code(201);
+
   return response;
 
 
-}
-
-async function postSubMessage(request, h){
-  console.log(message);
-  try {
-    const response = h.response({
-      status:'success',
-      message:'Pub/Sub message delivered'
-    }).code(204);
-    return response;
-  } catch (e){
-    const response = h.response({
-      status:'fail',
-      message:e.message
-    }).code(500);
-    return response;
-  }
 }
 
 function decodeBase64Json(data) {
   return JSON.parse(Buffer.from(data, 'base64').toString());
 }
 
-module.exports = { postSubMessage, PredictHandler };
+module.exports = { PredictHandler };
