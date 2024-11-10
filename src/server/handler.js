@@ -15,10 +15,10 @@ async function PredictHandler(request, h) {
     'suggestion':suggestion,
     'createdAt':createdAt,
   };
-  console.log(data)
+  // console.log(data)
   
   await storeData(pubsubMessage.id,data);
-  await publishPubSubMessage(data)
+  // await publishPubSubMessage(data)
 
   const response = h.response({
     status:'success',
