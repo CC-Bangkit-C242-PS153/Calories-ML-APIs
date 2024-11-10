@@ -1,6 +1,5 @@
 const { predictClassification } = require('../services/inferenceService');
 const { download } = require('./../services/downloadImage');
-const { publishPubSubMessage } = require('./../services/pubsub');
 const { storeData } = require('./../services/storeData');
 
 async function PredictHandler(request, h) {
@@ -15,10 +14,8 @@ async function PredictHandler(request, h) {
     'suggestion':suggestion,
     'createdAt':createdAt,
   };
-  // console.log(data)
   
   await storeData(pubsubMessage.id,data);
-  // await publishPubSubMessage(data)
 
   const response = h.response({
     status:'success',
@@ -28,8 +25,6 @@ async function PredictHandler(request, h) {
   response.code(201);
 
   return response;
-
-
 }
 
 function decodeBase64Json(data) {
