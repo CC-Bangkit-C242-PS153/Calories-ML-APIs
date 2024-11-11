@@ -10,12 +10,14 @@ async function PredictHandler(request, h) {
   const { label, suggestion } = await predictClassification(model, image);
 
   const data = {
-    'result':label,
-    'suggestion':suggestion,
-    'createdAt':createdAt,
+    userId:pubsubMessage.userId,
+    inferenceId:pubsubMessage.inferenceId,
+    result:label,
+    suggestion:suggestion,
+    createdAt:createdAt,
   };
   
-  await storeData(pubsubMessage.id,data);
+  await storeData(pubsubMessage.userId,pubsubMessage.inferenceId,data);
 
   const response = h.response({
     status:'success',
