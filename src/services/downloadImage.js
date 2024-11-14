@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { Storage } = require('@google-cloud/storage');
 const storage = new Storage();
 const bucketName = process.env.BUCKET_NAME
