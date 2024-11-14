@@ -1,10 +1,12 @@
 const fetch = require('node-fetch');
+const { Storage } = require('@google-cloud/storage');
+const storage = new Storage();
+const bucketName = process.env.BUCKET_NAME
 
 async function download(data){
-  const response = await fetch(`gs://fitcal/prediction/${data.inferenceId}.${data.type.ext}
-`);
-  const buffer = await response.buffer();
-  return buffer;
+  const file = storage.bucket(bucketName).file(`prediction/${data.inferenceId}.${data.type.ext}`);
+  const [contents] = await file.download(); 
+  return contents;
 }
 
 module.exports = { download };
