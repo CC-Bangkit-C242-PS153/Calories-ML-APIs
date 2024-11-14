@@ -16,7 +16,6 @@ async function PredictHandler(request, h) {
     suggestion:suggestion,
     createdAt:createdAt,
   };
-  console.log(data)
   await storeData(pubsubMessage.userId,pubsubMessage.inferenceId,data);
 
   const response = h.response({
@@ -25,7 +24,6 @@ async function PredictHandler(request, h) {
     data
   });
   response.code(201);
-
   return response;
 }
 
