@@ -3,6 +3,7 @@ const { download } = require('./../services/downloadImage');
 const { storeData } = require('./../services/storeData');
 
 async function PredictHandler(request, h) {
+  try{
   const pubsubMessage = await decodeBase64Json(request.payload.message.data);
   const createdAt = new Date().toISOString();
   const image = await download(pubsubMessage);
@@ -25,6 +26,14 @@ async function PredictHandler(request, h) {
   });
   response.code(201);
   return response;
+  } catch(e) {
+    const response = h.response({
+      status:'error',
+      statusCode:500,
+      message:'Model failed to do prediction'
+    }).code(500)
+    return response
+  }
 }
 
 function decodeBase64Json(data) {
